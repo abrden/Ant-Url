@@ -1,0 +1,32 @@
+{
+  "name": "ant-url",
+  "version": "1.0.0",
+  "description": "FreeCodeCamp API Project: URL shortener microservice",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/abrden/ant-url.git"
+  },
+  "keywords": [
+    "API",
+    "abrden",
+    "ant-url",
+    "url",
+    "shortener",
+    "microservice"
+  ],
+  "author": "Agustina (abrden)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/abrden/ant-url/issues"
+  },
+  "homepage": "https://github.com/abrden/ant-url#readme",
+  "dependencies": {
+    "express": "^4.13.4",
+    "mongodb": "^2.1.7"
+  }
+}
