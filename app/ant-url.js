@@ -11,7 +11,7 @@ module.exports = function (app, db) {
     function findURL(url, db, res) {
         var results = db.collection('urls');
         results.findOne({
-            "short_url": url
+            'short_url': url
         }, function(err, result) {
             if (err) throw err;
             
@@ -30,15 +30,15 @@ module.exports = function (app, db) {
         
         if (validURL(url)) {
             result = {
-                "original_url": url,
-                "short_url": process.env.APP_URL + generateAntUrl(db)
+                'original_url': url,
+                'short_url': process.env.APP_URL + generateAntUrl(db)
             };
             
             saveResult(db, result);
         
         } else {
             result = {
-                "error": "Ant-Url could not be generated because original url is not valid."
+                'error': 'Ant-Url could not be generated because original url is not valid.'
             };
         }
         
