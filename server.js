@@ -7,16 +7,18 @@ var express = require('express'),
     port = process.env.PORT || 8080,
     app = express();
 
-mongo.connect('mongodb://localhost:27017/clementinejs', function (err, db) {
+mongo.connect('mongodb://localhost:27017/ant-url', function (err, db) {
   
   if (err) throw new Error('Database failed to connect!');
   else console.log('MongoDB successfully connected on port 27017.');
-
+  
+  db.createCollection('urls');
+  
   routes(app);
   api(app, db);
 
   app.listen(port, function () {
-    console.log("Express server listening on port %d in %s mode", this.address().port, app.settings.env);
+    console.log('Express server listening on port %d in %s mode', this.address().port, app.settings.env);
   });
-  
+
 });
