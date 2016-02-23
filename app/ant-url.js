@@ -5,7 +5,9 @@ module.exports = function (app, db) {
     var appURL = process.env.APP_URL || 'https://url-shortener-microservice-abrden.c9users.io/';
     
     app.get('/:id', function(req, res) {
-        findURL(req.params.id, db, res);
+        var id = req.params.id;
+        var url = appURL + id;
+        if (url != appURL + 'favicon.ico') findURL(id, db, res);
     });
     
     function findURL(id, db, res) {
