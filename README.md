@@ -9,9 +9,11 @@
 
 ## Example usage
 `https://abrden-ant-url.herokuapp.com/new/http://freecodecamp.com/news`
+`https://abrden-ant-url.herokuapp.com/new/www.iaintnourl.com`
 
 ## Example output
-`{ "original_url": "http://freecodecamp.com/news", "short_url": "https://abrden-ant-url.herokuapp.com/4" }`
+`{ "original_url": "http://freecodecamp.com/news", "short_url": "https://abrden-ant-url.herokuapp.com/C8A2C8" }`
+`{ "error" : "Ant-Url could not be generated because original url is not valid." }`
 
 ## Live site
 <https://abrden-ant-url.herokuapp.com>
