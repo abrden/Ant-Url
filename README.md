@@ -7,11 +7,11 @@
 - [x] When I visit that shortened URL, it will redirect me to my original link.
 
 ## Example usage
-`https://abrden-ant-url.herokuapp.com/new/http://freecodecamp.com/news`\s
+`https://abrden-ant-url.herokuapp.com/new/http://freecodecamp.com/news`<br><br>
 `https://abrden-ant-url.herokuapp.com/new/www.iaintnourl.com`
 
 ## Example output
-`{ "original_url": "http://freecodecamp.com/news", "short_url": "https://abrden-ant-url.herokuapp.com/C8A2C8" }`\s
+`{ "original_url": "http://freecodecamp.com/news", "short_url": "https://abrden-ant-url.herokuapp.com/C8A2C8" }`<br><br>
 `{ "error" : "Ant-Url could not be generated because original url is not valid." }`
 
 ## Live site
