@@ -4,25 +4,11 @@ module.exports = function (app, db) {
     
     var appURL = process.env.APP_URL || 'https://url-shortener-microservice-abrden.c9users.io/';
     
-    app.get('/:id', function(req, res) {
+    app.route('/:id')
+        .get(function(req, res) {
         var id = req.params.id;
-        var url = appURL + id;
-        if (url != appURL + 'favicon.ico') findURL(id, db, res);
+        if (appURL + id != appURL + 'favicon.ico') findURL(id, db, res);
     });
-    
-    function findURL(id, db, res) {
-        var urls = db.collection('urls');
-        urls.findOne({
-            'id': id
-        }, function(err, result) {
-            if (err) throw err;
-            
-            if (result) {
-                console.log('Found');
-                res.redirect(result.url);
-            }
-        });
-    }
     
     app.get('/new/:url*', function(req, res) {
         var url = req.url.slice(5);
@@ -43,6 +29,20 @@ module.exports = function (app, db) {
         }
         
     });
+    
+    function findURL(id, db, res) {
+        var urls = db.collection('urls');
+        urls.findOne({
+            'id': id
+        }, function(err, result) {
+            if (err) throw err;
+            
+            if (result) {
+                console.log('Found');
+                res.redirect(result.url);
+            }
+        });
+    }
 
     function validURL(url) {
         // Regex from https://gist.github.com/dperini/729294
