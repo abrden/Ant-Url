@@ -2,47 +2,43 @@
 
 module.exports = function (app, db) {
     
-    app.route('/:query')
-        .get(function(req, res) {
-            var url = process.env.APP_URL + req.params.query;
-            findURL(url, db, res);
+    var appURL = process.env.APP_URL || 'https://url-shortener-microservice-abrden.c9users.io/';
+    
+    app.get('/:id', function(req, res) {
+        findURL(req.params.id, db, res);
     });
     
-    function findURL(url, db, res) {
-        var results = db.collection('urls');
-        results.findOne({
-            'short_url': url
+    function findURL(id, db, res) {
+        var urls = db.collection('urls');
+        urls.findOne({
+            'id': id
         }, function(err, result) {
             if (err) throw err;
             
             if (result) {
-                // Test comment
-                console.log('Found ' + result);
-                res.redirect(result.original_url);
+                console.log('Found');
+                res.redirect(result.url);
             }
         });
     }
     
-    app.get('/new/:query', function(req, res) {
-        
-        var url = req.params.query;
-        var result = {};
+    app.get('/new/:url*', function(req, res) {
+        var url = req.url.slice(5);
         
         if (validURL(url)) {
-            result = {
-                'original_url': url,
-                'short_url': process.env.APP_URL + generateAntUrl(db)
-            };
-            
-            saveResult(db, result);
+
+            var id = generateAntUrl(db);
+            saveResult(db, id, url);
+            res.json({
+                'original-url': url,
+                'ant-url': appURL + id
+            });
         
         } else {
-            result = {
+            res.json({
                 'error': 'Ant-Url could not be generated because original url is not valid.'
-            };
+            });
         }
-        
-        res.send(result);
         
     });
 
@@ -53,16 +49,17 @@ module.exports = function (app, db) {
     }
     
     function generateAntUrl(db) {
-        // Turn number of results to hexa to generate a unique and short id
-        return db.collection('urls').length.toString(16);
+        // Knowing that decimal 16777215 == ffffff
+        return Math.floor(Math.random()*16777215).toString(16);
     }
-    
-    function saveResult(db, result) {
-        var results = db.collection('urls');
-        results.save(result, function(err, data) {
+
+    function saveResult(db, id, url) {
+        db.collection('urls').save({
+            'id': id,
+            'url': url
+        }, function(err, data) {
             if (err) throw err;
-            // Test comment
-            console.log('Saved ' + data);
+            console.log('Saved');
         });
     }
     
